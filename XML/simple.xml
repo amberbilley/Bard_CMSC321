@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exercise>
+<root>
+  <child>
+    <subchild>.....</subchild>
+      <subsubchild>...</subsubchild>
+        <forever>...</forever>
+  </child>
+</root>
+<note>
+  <to>Tove</to>
+  <from>Jani</from>
+  <heading>Reminder</heading>
+  <body>Don't forget me this weekend!</body>
+</note>
+</exercise>

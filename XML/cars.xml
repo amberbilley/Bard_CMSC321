@@ -1,0 +1,24 @@
+Make
+Model
+Year
+Color
+Transmission
+Mileage
+CarFax Report
+
+<this>
+  <is color="yellow" verb="action">
+    <well color="blue">
+      <formed>example</formed>
+    </well>
+  </is>
+</this>
+
+<car year="2017" color="silver" model="Crostrek">
+  <make>Subaru</make>
+  <tranmission>Automatic</transmission>
+  <mileage>50,000</mileage>
+  <CarFaxReport>N/A</CarFaxReport>
+</car>
+
+<language ISO="eng">English</language>
