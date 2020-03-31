@@ -1,0 +1,230 @@
+Complete Elmasri Ch. 12 Review Questions 12.1-12.9 and Exercises 12.25, 12.28, & 12.31
+
+12.1
+Q: What are the origins of the object-oriented appraoch?
+
+A: OODBs have their origins in OO Programming Languages like SIMULA (1960s) and SmallTalk (1970s).
+More contemporary OO programming languages that are utilized with OODBs are Java, C++, C#, Python, PHP, JavaScript, Ruby, Perl to name a few.
+
+12.2
+Q: What primary characteristics should an OID posses?
+
+A: An OID should be immutable and should not change, and it does not depend on an attribute value of an object since values can change over time.
+
+12.3
+Q: Discuss the various type constructors. How are they used to create complex object structures?
+
+A: In OODBs, a complex type may be constructed from other types by nesting of type constructors. The three most basic constructors are:
+    1. Atom constructor: the basic built-in data types - integers, strings, floating-point numbers, enumerated types, Booleans, etc
+    2. Struct (or tuple) constructor: creates standard structured types such as the tuples in a the basic relation model. The struct constructor is not really a type, but rather a type generator, because many different structured types can be created for complex nested type structures.
+    3. Collection (or multivalued) type constructors have objects and values that will be a collection of objects or values of the same type that may be unordered or ordered. These types include:
+        Set - creates objects or literals that are a set of distinct elements {i1, i2, … iN}
+        Bag - similar to a set except the elements need not be distinct
+        List - will create an ordered list [i1, i2, … iN] of OID or values of the same type
+        Array - creates a single-dimensional array of elements of the same type of a defined maximum size
+        Dictionary - creates a collection of key-value pairs
+
+12.4
+Q: Discuss the concept of encapsulation, and tell how it is used to create abstract data types
+
+??A: The concept of encapsulation is one of the main characteristics of OO languages and systems.
+It is also related to the concepts of abstract data types and information hiding in programming languages.
+In traditional DBMSs this concept was not applied, since it is customary to make the structure of the DB objects visible to users and external programs. A number of generic DB operations are applicable to all types of objects (i.e. inserting, deleting, and modifying tuples)
+The concept of encapsulation is applied to DB objects in OODBs by defining the behavior of a type of object based on the operations that can be externally applied to objects of that type.
+With encapsulation, external users of the object are only made aware of the interface of the operations, which defines the names and arguments (parameters) of each operation)
+The interface part of an operation is sometimes called the signature, and the operation implementation is sometimes called the method.
+
+12.5
+Explain what the following terms mean in OODB terminology:
+  - method: The second part of encapsulation. It specifies the implementation of the operation.
+  - signature: The first part of encapsulation. It specifies the operation name and arguments (parameters).
+  - message: ??
+  - collection: A type constructor where objects and values will be a collection of objects or values of the same type that may be unordered or ordered.
+  - extent: A named persistent object whose value is a persistent collection that holds a collection of object of the same type that are stored permanently in the database.
+
+12.6
+Q:  What is the relationship between a type and its subtype in a type hierarchy?
+    What is the constraint that is enforced on extents corresponding to types in the type hierarchy?
+
+A: The subtype inherits all the functions of the predefined type, which is referred to as the supertype.
+Every object in an extent that corresponds to a subtype must also be a member of the extent that corresponds to its supertype.
+
+12.7
+Q:  What is the difference between persistent and transient objects?
+    How is persistence handled in typical OO DB systems?
+
+A:
+Transient objects exist in the executing program and disappear once the program terminates
+Persistent objects are stored in the DB and persist after program termination.
+
+The typical mechanism for making an object persistent are:
+Naming - involves giving an object a unique persistent name within a particular DB
+Reachability - Obviously it’s not practical to give names to all objects in a large DB, so most objects are made persistent by making the object reachable from some other persistent object.
+
+12.8
+Q: How do regular inheritance, multiple inheritance, and selective inheritance differ?
+
+A: Inheritance allows the definition of new types based on predefined types lead to a type (or class) hierarchy.
+Multiple inheritance occurs when a certain subtype T is a subtype of two (or more) types and hence inherits the functions (attributes and methods) of both supertypes.
+This leads to the creation of a type lattice rather than a type hierarchy.
+Selective inheritance occurs when a subject inherits only some of the functions of a supertype.
+
+12.9
+Q: Discuss the concept of polymorphism/operator overloading?
+
+A: OODBs in general is that they provide for polymorphism of operations (AKA operator overloading). This concept allows the same operator or symbol to be bound to two or more different implementations of the same operator, depending on the type of objects to which the operator is applied.
+
+###
+
+12.25
+Convert the example of GEOMETRY_OBEJCT give in Section 12.1.5 from the functional notation
+to the notation given in Figure 12.2 that distinguishes between attributes and operations.
+Use the keyword INHERIT to show that one class inherits from another class.
+
+# GEOMETRY_OBEJCT from Section 12.1.5
+
+GEOMETRY_OBEJCT: Shape, Area, Reference_point
+RECTANGLE subtype-of GEOMETRY_OBEJCT: Width, Height
+TRIANGLE subtype-of GEOMETRY_OBEJCT: Side1, Side2, angle
+CIRCLE subtype-of GEOMETRY_OBEJCT: Radius
+
+# GEOMETRY_OBEJCT in the syntax of Fig. 12.2
+
+Define class GEOMETRY_OBEJCT
+  type tuple
+    (
+      shape:            RECTANGLE,TRIANGLE,CIRCLE, [etc];
+    );
+    operations
+      area:             integer;
+      reference_point   integer;
+    );
+end GEOMETRY_OBEJCT;
+Define class RECTANGLE
+  type tuple
+    (
+      Width:            integer;
+      Height:           integer;
+    );
+    operations
+    (
+      INHERIT area:             integer
+      INHERIT reference_point   integer;
+    );
+end RECTANGLE;
+Define class TRIANGLE
+  type tuple
+    (
+      Side1:            integer;
+      Side2:            integer;
+      Angle:            integer;
+    );
+    operations
+    (
+      INHERIT area:             integer
+      INHERIT reference_point   integer;
+    );
+end TRIANGLE;
+Define class CIRCLE
+  type tuple
+    (
+      Radius:            integer;
+    );
+    operations
+    (
+      INHERIT area:             integer
+      INHERIT reference_point   integer;
+    );
+end CIRCLE;
+
+# Figure 12.2
+Define class EMPLOYEE
+  type tuple
+  (
+    Fname:        string;
+    Minit:        char;
+    Lname:        string;
+    Ssn:          string;
+    Birth_date:   DATE;
+    Address:      string;
+    Sex:          char;
+    Salary:       float;
+    Supervisor:   EMPLOYEE;
+    Dept:         DEPARTMENT;
+  );
+  operations
+    age:          integer;
+    create_emp:   EMPLOYEE;
+    destroy_emp:  boolean;
+end EMPLOYEE;
+define class DEPARTMENT
+  type tuple
+    (
+      Dname:        string;
+      Dnumber:      integer;
+      Mgr:          tuple ( Manager:      EMPLOYEE;
+                            Start_date    DATE; );
+      Locations:    set (string);
+      Employees:    set (EMPLOYEE);
+      Projects:     set (PROJECT);
+    );
+    operations
+      no_of_emps:   integer;
+      create_dept:  set (EMPLOYEE);
+      destroy_dept: boolean;
+      assign_emp(e:EMPLOYEE): boolean;
+      remove_emo(e:EMPLOYEE): boolean;
+end DEPARTMENT;
+
+
+12.28
+Consider the COMPANY ER schema in Figure 3.2. Think of what operations are needed for the entity types/classes in the schema. Do not consider constructor and destructor operations.
+
+COMPANY
+  DEFINE class EMPLOYEE:
+    operations
+    (
+        raise Salary
+        change Address
+        get age
+        get Supervisor
+        get Supervisees
+        show projects
+        show-dependants
+    );
+    DEFINE class DEPARTMENT:
+    operations
+    (
+
+    );
+    DEFINE class PROJECT:
+    operations
+    (
+
+    );
+
+
+12.31
+Map the COMPANY ER schema in Figure 3.2 into ODL classes. Include appropriate methods for each class.
+
+class EMPLOYEE
+( extent    Employees
+  key       Ssn )
+{
+  attribute     struct Pname {  string    Fname,
+                                string    Minit,
+                                strings   Lname }   Name;
+  attribute     string                              Ssn;
+  attribute     date                                Bdate;
+  attribute     struct Address  { string    Street,
+                                  short     Apt_no,
+                                  string    City,
+                                  string    State,
+                                  short     Zip, }  Address;
+  attribute     enum Gender {M,F,T,NB}              Gender;
+  attribute     short                               Salary;
+  attribute     string                              Super_ssn;
+  relationship  DEPARTMENT  Works_in inverse DEPARTMENT::Has employee;
+  relationship  DEPARTMENT  Manages inverse DEPARTMENT::Has employee;
+  relationship  PROJECT     Works_on inverse PROJECT::Has employee;
+};
