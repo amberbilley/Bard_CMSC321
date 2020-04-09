@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <Company>
+        <department>
+            <Department>
+                <departmentName>Research</departmentName>
+                <departmentNumber>5</departmentNumber>
+                <departmentManagerSSN>333445555</departmentManagerSSN>
+                <departmentManagerStartDate>1988-05-22</departmentManagerStartDate>
+                <departmentLocation>Bellaire</departmentLocation>
+            </Department>
+        </department>
+        <employee>
+            <Employee>
+                <employeeName>
+                    <Name>
+                        <firstName>John </firstName>
+                        <middleName>B</middleName>
+                        <lastName>Smith</lastName>
+                    </Name>
+                </employeeName>
+                <employeeSSN>123456789 </employeeSSN>
+                <employeeSex>M</employeeSex>
+                <employeeSalary>30000 </employeeSalary>
+                <employeeBirthDate>1965-01-09 </employeeBirthDate>
+                <employeeDepartmentNumber>5</employeeDepartmentNumber>
+                <employeeSupervisorSSN>333445555</employeeSupervisorSSN>
+                <employeeAddress>
+                    <Address>
+                        <number>731</number>
+                        <street>Fondren</street>
+                        <city>Houston</city>
+                        <state>TX</state>
+                    </Address>
+                </employeeAddress>
+                <employeeWorksOn>
+                    <WorksOn>
+                        <projectNumber>1</projectNumber>
+                        <hours>32.5</hours>
+                    </WorksOn>
+                </employeeWorksOn>
+                <employeeDependent>
+                    <Dependent>
+                        <dependentName>
+                            <Name>
+                                <firstName>Michael</firstName>
+                            </Name>
+                        </dependentName>
+                        <dependentSex>M</dependentSex>
+                        <dependentBirthDate>1988-01-04 </dependentBirthDate>
+                        <dependentRelationship>Son</dependentRelationship>
+                    </Dependent>
+                </employeeDependent>
+            </Employee>
+        </employee>
+        <project>
+            <Project>
+                <projectName>ProductX</projectName>
+                <projectNumber>1</projectNumber>
+                <projectLocation>Bellaire</projectLocation>
+                <projectDepartmentNumber>1</projectDepartmentNumber>
+                <projectWorker>
+                    <Worker>
+                        <SSN>123456789</SSN>
+                        <hours>32.5</hours>
+                    </Worker>
+                </projectWorker>
+            </Project>
+        </project>
+    </Company>
+    
+    
+    
+    
+    
+    
+    
+    
+</root>
