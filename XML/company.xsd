@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="“http://www.w3.org/2001/XMLSchema”">
+  <xsd:annotation>
+    <xsd:documentation xml:lang="en">Company Schema (Element Approach) - Prepared by Babak Hojabri</xsd:documentation>
+  </xsd:annotation>
+  <xsd:element name="company">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="department" type="Department" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element name="employee" type="Employee" minOccurs="0" maxOccurs="unbounded">
+          <xsd:unique name="dependentNameUnique">
+            <xsd:selector xpath="employeeDependent"/>
+            <xsd:field xpath="dependentName"/>
+          </xsd:unique>
+        </xsd:element>
+        <xsd:element name="project" type="Project" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+    <xsd:unique name="departmentNameUnique">
+      <xsd:selector xpath="department"/>
+      <xsd:field xpath="departmentName"/>
+    </xsd:unique>
+    <xsd:unique name="projectNameUnique">
+      <xsd:selector xpath="project"/>
+      <xsd:field xpath="projectName"/>
+    </xsd:unique>
+    <xsd:key name="projectNumberKey">
+      <xsd:selector xpath="project"/>
+      <xsd:field xpath="projectNumber"/>
+    </xsd:key>
+    <xsd:key name="departmentNumberKey">
+      <xsd:selector xpath="department"/>
+      <xsd:field xpath="departmentNumber"/>
+    </xsd:key>
+    <xsd:key name="employeeSSNKey">
+      <xsd:selector xpath="“employee”"/>
+      <xsd:field xpath="employeeSSN"/>
+    </xsd:key>
+    <xsd:keyref name="departmentManagerSSNKeyRef" refer="employeeSSNKey">
+      <xsd:selector xpath="department"/>
+      <xsd:field xpath="departmentManagerSSN"/>
+    </xsd:keyref>
+    <xsd:keyref name="employeeDepartmentNumberKeyRef" refer="departmentNumberKey">
+      <xsd:selector xpath="employee"/>
+      <xsd:field xpath="employeeDepartmentNumber"/>
+    </xsd:keyref>
+    <xsd:keyref name="employeeSupervisorSSNKeyRef" refer="employeeSSNKey">
+      <xsd:selector xpath="employee"/>
+      <xsd:field xpath="employeeSupervisorSSN"/>
+    </xsd:keyref>
+    <xsd:keyref name="projectDepartmentNumberKeyRef" refer="departmentNumberKey">
+      <xsd:selector xpath="project"/>
+      <xsd:field xpath="projectDepartmentNumber"/>
+    </xsd:keyref>
+    <xsd:keyref name="projectWorkerSSNKeyRef" refer="employeeSSNKey">
+      <xsd:selector xpath="project/projectWorker"/>
+      <xsd:field xpath="SSN"/>
+    </xsd:keyref>
+    <xsd:keyref name="employeeWorksOnProjectNumberKeyRef" refer="projectNumberKey">
+      <xsd:selector xpath="employee/employeeWorksOn"/>
+      <xsd:field xpath="projectNumber"/>
+    </xsd:keyref>
+  </xsd:element>
+  <xsd:complexType name="Department">
+    <xsd:sequence>
+      <xsd:element name="departmentName" type="xsd:string"/>
+      <xsd:element name="departmentNumber" type="xsd:string"/>
+      <xsd:element name="departmentManagerSSN" type="xsd:string"/>
+      <xsd:element name="departmentManagerStartDate" type="xsd:date"/>
+      <xsd:element name="departmentLocation" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Employee">
+    <xsd:sequence>
+      <xsd:element name="employeeName" type="Name"/>
+      <xsd:element name="employeeSSN" type="xsd:string"/>
+      <xsd:element name="employeeSex" type="xsd:string"/>
+      <xsd:element name="employeeSalary" type="xsd:unsignedInt"/>
+      <xsd:element name="employeeBirthDate" type="xsd:date"/>
+      <xsd:element name="employeeDepartmentNumber" type="xsd:string"/>
+      <xsd:element name="employeeSupervisorSSN" type="xsd:string"/>
+      <xsd:element name="employeeAddress" type="Address"/>
+      <xsd:element name="employeeWorksOn" type="WorksOn" minOccurs="1" maxOccurs="unbounded"/>
+      <xsd:element name="employeeDependent" type="Dependent" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Project">
+    <xsd:sequence>
+      <xsd:element name="projectName" type="xsd:string"/>
+      <xsd:element name="projectNumber" type="xsd:string"/>
+      <xsd:element name="projectLocation" type="xsd:string"/>
+      <xsd:element name="projectDepartmentNumber" type="xsd:string"/>
+      <xsd:element name="projectWorker" type="Worker" minOccurs="1" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Dependent">
+    <xsd:sequence>
+      <xsd:element name="dependentName" type="xsd:string"/>
+      <xsd:element name="dependentSex" type="xsd:string"/>
+      <xsd:element name="dependentBirthDate" type="xsd:date"/>
+      <xsd:element name="dependentRelationship" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Address">
+    <xsd:sequence>
+      <xsd:element name="number" type="xsd:string"/>
+      <xsd:element name="street" type="xsd:string"/>
+      <xsd:element name="city" type="xsd:string"/>
+      <xsd:element name="state" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Name">
+    <xsd:sequence>
+      <xsd:element name="firstName" type="xsd:string"/>
+      <xsd:element name="middleName" type="xsd:string"/>
+      <xsd:element name="lastName" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Worker">
+    <xsd:sequence>
+      <xsd:element name="SSN" type="xsd:string"/>
+      <xsd:element name="hours" type="xsd:float"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="WorksOn">
+    <xsd:sequence>
+      <xsd:element name="projectNumber" type="xsd:string"/>
+      <xsd:element name="hours" type="xsd:float"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>
